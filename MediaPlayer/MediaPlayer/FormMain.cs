@@ -12,24 +12,34 @@ using System.IO;
 
 namespace MediaPlayer
 {
+    public struct file
+    {
+        public string path;
+        public string fileName;
+    }
+
     public partial class FormMain : Form
     {
-        bool _loading = true;
-        bool _fileTypeChanging = false;
-        bool _mediaPlayerOpened = false;
-        string _mediaPath;
-        List<string> _mediaFiles;
-        List<string> _fileTypes;
-        List<string> videoTypes = new List<string>() { ".m4v", ".avi", ".XviD", ".mpg", ".flv" };
-        List<string> musicTypes = new List<string>() { ".m4a", ".mp3", ".flv", ".m4p" };
+        private bool _controlOpen = false;
+        private bool _loading = true;
+        private bool _fileTypeChanging = false;
+        private string _mediaPath;
+        private List<file> _allFiles;
+        private List<file> _playlistFiles;
+        private List<string> _mediaFiles;
+        private List<string> _fileTypes;
+        private List<string> videoTypes = new List<string>() { ".m4v", ".avi", ".XviD", ".mpg", ".flv" };
+        private List<string> musicTypes = new List<string>() { ".m4a", ".mp3", ".flv", ".m4p" };
+        private FormControls formControls;
         System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-        AXVLC.VLCPlugin2Class mediaPlayer = new AXVLC.VLCPlugin2Class();
         
         public FormMain()
         {
             InitializeComponent();
             _mediaFiles = new List<string>();
             _fileTypes = new List<string>();
+            _allFiles = new List<file>();
+            _playlistFiles = new List<file>();
         }
 
         private void FormMain_Load(object sender, EventArgs e)
@@ -43,6 +53,8 @@ namespace MediaPlayer
             loadFileTypes();
             //Load ComboBox Types
             populateComboBoxTypes();
+
+            populateComboBoxPlayer();
 
             _mediaPath = textBoxMediaLocation.Text;
             getFiles(_mediaPath);
@@ -83,7 +95,11 @@ namespace MediaPlayer
                     {
                         if (file.EndsWith(fileType))
                         {
-                            checkedListBoxMedia.Items.Add(file);
+                            file temp = new file();
+                            temp.fileName = Path.GetFileNameWithoutExtension(file);
+                            temp.path = file;
+                            _allFiles.Add(temp);
+                            listBoxAvailableMedia.Items.Add(temp.fileName);
                         }
                     }
                 }
@@ -98,14 +114,9 @@ namespace MediaPlayer
             {
                 textBoxMediaLocation.Text = folderBrowser.SelectedPath;
                 _mediaPath = folderBrowser.SelectedPath;
-                checkedListBoxMedia.Items.Clear();
+                listBoxAvailableMedia.Items.Clear();
                 getFiles(_mediaPath);
             }
-        }
-
-        private void FormMain_SizeChanged(object sender, EventArgs e)
-        {
-            checkedListBoxMedia.Size = new System.Drawing.Size(this.Width - 50, checkedListBoxMedia.Height);
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -120,7 +131,7 @@ namespace MediaPlayer
             if (!_loading && !_fileTypeChanging)
             {
                 _fileTypes = new List<string>() { comboBoxFormats.Text };
-                checkedListBoxMedia.Items.Clear();
+                listBoxAvailableMedia.Items.Clear();
                 getFiles(_mediaPath);
                 _fileTypeChanging = false;
             }
@@ -133,7 +144,7 @@ namespace MediaPlayer
                 _fileTypeChanging = true;
                 loadFileTypes();
                 populateComboBoxTypes();
-                checkedListBoxMedia.Items.Clear();
+                listBoxAvailableMedia.Items.Clear();
                 getFiles(_mediaPath);
                 _fileTypeChanging = false;
             }
@@ -142,28 +153,56 @@ namespace MediaPlayer
         private void buttonPlay_Click(object sender, EventArgs e)
         {
 
-            foreach (var mediaFile in checkedListBoxMedia.CheckedItems)
-            {
-                mediaPlayer.addTarget(mediaFile.ToString(), new object(), AXVLC.VLCPlaylistMode.VLCPlayListInsert, 0);
-            }
-            if (!_mediaPlayerOpened)
-            {
-                mediaPlayer.play();
-                _mediaPlayerOpened = true;
-            }
-
+                formControls = new FormControls(_playlistFiles, comboBoxPlayer.Text);
+                formControls.Show();
 
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void buttonToPlaylist_Click(object sender, EventArgs e)
         {
-            if (_mediaPlayerOpened)
+            file temp = _allFiles[findIndex(listBoxAvailableMedia.SelectedItem.ToString(), _allFiles)];
+            _playlistFiles.Add(temp);
+            listBoxPlaylist.Items.Add(temp.fileName);
+        }
+
+        private void buttonFromPlaylist_Click(object sender, EventArgs e)
+        {
+            file temp = _playlistFiles[findIndex(listBoxPlaylist.SelectedItem.ToString(), _playlistFiles)];
+            _playlistFiles.Remove(temp);
+            listBoxPlaylist.Items.Remove(listBoxPlaylist.SelectedItem);
+        }
+
+        private int findIndex(string fileName, List<file> toSearch)
+        {
+            int index = 0;
+            foreach (file temp in toSearch)
             {
-                if (!mediaPlayer.playlist.isPlaying)
+                if (temp.fileName == fileName)
                 {
-                    mediaPlayer.playlistNext();
+                    break;
                 }
+                index++;
             }
+            return index;
+        }
+
+        public bool controlOpen
+        {
+            get
+            {
+                return _controlOpen;
+            }
+            set
+            {
+                _controlOpen = value;
+            }
+        }
+
+        private void populateComboBoxPlayer()
+        {
+            comboBoxPlayer.Items.Add("VLC");
+            comboBoxPlayer.Items.Add("Windows Media Player");
+            comboBoxPlayer.Text = "VLC";
         }
     }
 }

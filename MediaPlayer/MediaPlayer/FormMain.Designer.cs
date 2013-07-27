@@ -32,11 +32,15 @@
             this.labelMedia = new System.Windows.Forms.Label();
             this.textBoxMediaLocation = new System.Windows.Forms.TextBox();
             this.buttonBrowse = new System.Windows.Forms.Button();
-            this.checkedListBoxMedia = new System.Windows.Forms.CheckedListBox();
             this.comboBoxFileTypes = new System.Windows.Forms.ComboBox();
             this.comboBoxFormats = new System.Windows.Forms.ComboBox();
             this.buttonPlay = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.listBoxPlaylist = new System.Windows.Forms.ListBox();
+            this.listBoxAvailableMedia = new System.Windows.Forms.ListBox();
+            this.buttonToPlaylist = new System.Windows.Forms.Button();
+            this.buttonFromPlaylist = new System.Windows.Forms.Button();
+            this.comboBoxPlayer = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // labelMedia
@@ -68,22 +72,13 @@
             this.buttonBrowse.UseVisualStyleBackColor = true;
             this.buttonBrowse.Click += new System.EventHandler(this.buttonBrowse_Click);
             // 
-            // checkedListBoxMedia
-            // 
-            this.checkedListBoxMedia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkedListBoxMedia.FormattingEnabled = true;
-            this.checkedListBoxMedia.Location = new System.Drawing.Point(12, 106);
-            this.checkedListBoxMedia.Name = "checkedListBoxMedia";
-            this.checkedListBoxMedia.Size = new System.Drawing.Size(549, 310);
-            this.checkedListBoxMedia.TabIndex = 4;
-            // 
             // comboBoxFileTypes
             // 
             this.comboBoxFileTypes.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFileTypes.FormattingEnabled = true;
             this.comboBoxFileTypes.Location = new System.Drawing.Point(17, 49);
             this.comboBoxFileTypes.Name = "comboBoxFileTypes";
-            this.comboBoxFileTypes.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxFileTypes.Size = new System.Drawing.Size(95, 24);
             this.comboBoxFileTypes.TabIndex = 5;
             this.comboBoxFileTypes.SelectedIndexChanged += new System.EventHandler(this.comboBoxFileTypes_SelectedIndexChanged);
             // 
@@ -91,43 +86,94 @@
             // 
             this.comboBoxFormats.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.comboBoxFormats.FormattingEnabled = true;
-            this.comboBoxFormats.Location = new System.Drawing.Point(154, 49);
+            this.comboBoxFormats.Location = new System.Drawing.Point(127, 49);
             this.comboBoxFormats.Name = "comboBoxFormats";
-            this.comboBoxFormats.Size = new System.Drawing.Size(121, 24);
+            this.comboBoxFormats.Size = new System.Drawing.Size(95, 24);
             this.comboBoxFormats.TabIndex = 6;
             this.comboBoxFormats.SelectedIndexChanged += new System.EventHandler(this.comboBoxFormats_SelectedIndexChanged);
             // 
             // buttonPlay
             // 
-            this.buttonPlay.Location = new System.Drawing.Point(404, 49);
+            this.buttonPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonPlay.Location = new System.Drawing.Point(506, 45);
             this.buttonPlay.Name = "buttonPlay";
-            this.buttonPlay.Size = new System.Drawing.Size(93, 36);
+            this.buttonPlay.Size = new System.Drawing.Size(198, 50);
             this.buttonPlay.TabIndex = 7;
-            this.buttonPlay.Text = "Play Media";
+            this.buttonPlay.Text = "Play";
             this.buttonPlay.UseVisualStyleBackColor = true;
             this.buttonPlay.Click += new System.EventHandler(this.buttonPlay_Click);
             // 
-            // timer1
+            // listBoxPlaylist
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.listBoxPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxPlaylist.FormattingEnabled = true;
+            this.listBoxPlaylist.ItemHeight = 16;
+            this.listBoxPlaylist.Location = new System.Drawing.Point(449, 101);
+            this.listBoxPlaylist.Name = "listBoxPlaylist";
+            this.listBoxPlaylist.Size = new System.Drawing.Size(315, 324);
+            this.listBoxPlaylist.TabIndex = 9;
+            // 
+            // listBoxAvailableMedia
+            // 
+            this.listBoxAvailableMedia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.listBoxAvailableMedia.FormattingEnabled = true;
+            this.listBoxAvailableMedia.ItemHeight = 16;
+            this.listBoxAvailableMedia.Location = new System.Drawing.Point(17, 101);
+            this.listBoxAvailableMedia.Name = "listBoxAvailableMedia";
+            this.listBoxAvailableMedia.Size = new System.Drawing.Size(315, 324);
+            this.listBoxAvailableMedia.TabIndex = 10;
+            // 
+            // buttonToPlaylist
+            // 
+            this.buttonToPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonToPlaylist.Location = new System.Drawing.Point(357, 122);
+            this.buttonToPlaylist.Name = "buttonToPlaylist";
+            this.buttonToPlaylist.Size = new System.Drawing.Size(75, 45);
+            this.buttonToPlaylist.TabIndex = 11;
+            this.buttonToPlaylist.Text = "Add";
+            this.buttonToPlaylist.UseVisualStyleBackColor = true;
+            this.buttonToPlaylist.Click += new System.EventHandler(this.buttonToPlaylist_Click);
+            // 
+            // buttonFromPlaylist
+            // 
+            this.buttonFromPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonFromPlaylist.Location = new System.Drawing.Point(357, 230);
+            this.buttonFromPlaylist.Name = "buttonFromPlaylist";
+            this.buttonFromPlaylist.Size = new System.Drawing.Size(75, 47);
+            this.buttonFromPlaylist.TabIndex = 12;
+            this.buttonFromPlaylist.Text = "Remove";
+            this.buttonFromPlaylist.UseVisualStyleBackColor = true;
+            this.buttonFromPlaylist.Click += new System.EventHandler(this.buttonFromPlaylist_Click);
+            // 
+            // comboBoxPlayer
+            // 
+            this.comboBoxPlayer.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.comboBoxPlayer.FormattingEnabled = true;
+            this.comboBoxPlayer.Location = new System.Drawing.Point(237, 49);
+            this.comboBoxPlayer.Name = "comboBoxPlayer";
+            this.comboBoxPlayer.Size = new System.Drawing.Size(95, 24);
+            this.comboBoxPlayer.TabIndex = 13;
             // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(582, 467);
+            this.ClientSize = new System.Drawing.Size(781, 437);
+            this.Controls.Add(this.comboBoxPlayer);
+            this.Controls.Add(this.buttonFromPlaylist);
+            this.Controls.Add(this.buttonToPlaylist);
+            this.Controls.Add(this.listBoxAvailableMedia);
+            this.Controls.Add(this.listBoxPlaylist);
             this.Controls.Add(this.buttonPlay);
             this.Controls.Add(this.comboBoxFormats);
             this.Controls.Add(this.comboBoxFileTypes);
-            this.Controls.Add(this.checkedListBoxMedia);
             this.Controls.Add(this.buttonBrowse);
             this.Controls.Add(this.textBoxMediaLocation);
             this.Controls.Add(this.labelMedia);
             this.Name = "FormMain";
+            this.Text = "Media Player";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormMain_FormClosing);
             this.Load += new System.EventHandler(this.FormMain_Load);
-            this.SizeChanged += new System.EventHandler(this.FormMain_SizeChanged);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -138,11 +184,15 @@
         private System.Windows.Forms.Label labelMedia;
         private System.Windows.Forms.TextBox textBoxMediaLocation;
         private System.Windows.Forms.Button buttonBrowse;
-        private System.Windows.Forms.CheckedListBox checkedListBoxMedia;
         private System.Windows.Forms.ComboBox comboBoxFileTypes;
         private System.Windows.Forms.ComboBox comboBoxFormats;
         private System.Windows.Forms.Button buttonPlay;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.ListBox listBoxPlaylist;
+        private System.Windows.Forms.ListBox listBoxAvailableMedia;
+        private System.Windows.Forms.Button buttonToPlaylist;
+        private System.Windows.Forms.Button buttonFromPlaylist;
+        private System.Windows.Forms.ComboBox comboBoxPlayer;
     }
 }
 
