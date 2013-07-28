@@ -25,13 +25,37 @@ namespace WindowsFormsApplication1.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("\"F:/TV_Movies/\"")]
+        [global::System.Configuration.DefaultSettingValueAttribute("F:\\TV_Movies")]
         public string MediaLocation {
             get {
                 return ((string)(this["MediaLocation"]));
             }
             set {
                 this["MediaLocation"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Windows Media Player")]
+        public string Player {
+            get {
+                return ((string)(this["Player"]));
+            }
+            set {
+                this["Player"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("Music")]
+        public string Type {
+            get {
+                return ((string)(this["Type"]));
+            }
+            set {
+                this["Type"] = value;
             }
         }
     }

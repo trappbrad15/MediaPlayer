@@ -3,7 +3,13 @@
   <Profiles />
   <Settings>
     <Setting Name="MediaLocation" Type="System.String" Scope="User">
-      <Value Profile="(Default)">"F:/TV_Movies/"</Value>
+      <Value Profile="(Default)">F:\TV_Movies</Value>
+    </Setting>
+    <Setting Name="Player" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Windows Media Player</Value>
+    </Setting>
+    <Setting Name="Type" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Music</Value>
     </Setting>
   </Settings>
 </SettingsFile>

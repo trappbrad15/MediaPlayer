@@ -31,7 +31,6 @@ namespace MediaPlayer
         private List<string> videoTypes = new List<string>() { ".m4v", ".avi", ".XviD", ".mpg", ".flv" };
         private List<string> musicTypes = new List<string>() { ".m4a", ".mp3", ".flv", ".m4p" };
         private FormControls formControls;
-        System.Configuration.Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
         
         public FormMain()
         {
@@ -44,11 +43,12 @@ namespace MediaPlayer
 
         private void FormMain_Load(object sender, EventArgs e)
         {
-            textBoxMediaLocation.Text = ConfigurationManager.AppSettings["mediaLocation"];
-            comboBoxFileTypes.Text = ConfigurationManager.AppSettings["fileType"];
+            textBoxMediaLocation.Text = WindowsFormsApplication1.Properties.Settings.Default.MediaLocation;
+
             //Load ComboBox File Types
             comboBoxFileTypes.Items.Add("Video");
             comboBoxFileTypes.Items.Add("Music");
+            comboBoxFileTypes.Text = WindowsFormsApplication1.Properties.Settings.Default.Type;
 
             loadFileTypes();
             //Load ComboBox Types
@@ -93,13 +93,27 @@ namespace MediaPlayer
                 {
                     foreach (string fileType in _fileTypes)
                     {
-                        if (file.EndsWith(fileType))
+                        if (textBoxSearch.Text == "")
                         {
-                            file temp = new file();
-                            temp.fileName = Path.GetFileNameWithoutExtension(file);
-                            temp.path = file;
-                            _allFiles.Add(temp);
-                            listBoxAvailableMedia.Items.Add(temp.fileName);
+                            if (file.EndsWith(fileType))
+                            {
+                                file temp = new file();
+                                temp.fileName = Path.GetFileNameWithoutExtension(file);
+                                temp.path = file;
+                                _allFiles.Add(temp);
+                                listBoxAvailableMedia.Items.Add(temp.fileName);
+                            }
+                        }
+                        else
+                        {
+                            if (file.EndsWith(fileType) && file.Contains(textBoxSearch.Text))
+                            {
+                                file temp = new file();
+                                temp.fileName = Path.GetFileNameWithoutExtension(file);
+                                temp.path = file;
+                                _allFiles.Add(temp);
+                                listBoxAvailableMedia.Items.Add(temp.fileName);
+                            }
                         }
                     }
                 }
@@ -121,9 +135,10 @@ namespace MediaPlayer
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ConfigurationManager.AppSettings["fileType"] = comboBoxFileTypes.Text;
-            ConfigurationManager.AppSettings["mediaLocation"] = textBoxMediaLocation.Text;
-            config.Save();
+            WindowsFormsApplication1.Properties.Settings.Default.MediaLocation = textBoxMediaLocation.Text;
+            WindowsFormsApplication1.Properties.Settings.Default.Player = comboBoxPlayer.Text;
+            WindowsFormsApplication1.Properties.Settings.Default.Type = comboBoxFileTypes.Text;
+            WindowsFormsApplication1.Properties.Settings.Default.Save();
         }
 
         private void comboBoxFormats_SelectedIndexChanged(object sender, EventArgs e)
@@ -161,8 +176,11 @@ namespace MediaPlayer
         private void buttonToPlaylist_Click(object sender, EventArgs e)
         {
             file temp = _allFiles[findIndex(listBoxAvailableMedia.SelectedItem.ToString(), _allFiles)];
-            _playlistFiles.Add(temp);
-            listBoxPlaylist.Items.Add(temp.fileName);
+            if (!_playlistFiles.Contains(temp))
+            {
+                _playlistFiles.Add(temp);
+                listBoxPlaylist.Items.Add(temp.fileName);
+            }
         }
 
         private void buttonFromPlaylist_Click(object sender, EventArgs e)
@@ -202,7 +220,13 @@ namespace MediaPlayer
         {
             comboBoxPlayer.Items.Add("VLC");
             comboBoxPlayer.Items.Add("Windows Media Player");
-            comboBoxPlayer.Text = "VLC";
+            comboBoxPlayer.Text = WindowsFormsApplication1.Properties.Settings.Default.Player;
+        }
+
+        private void textBoxSearch_TextChanged(object sender, EventArgs e)
+        {
+            listBoxAvailableMedia.Items.Clear();
+            getFiles(_mediaPath);
         }
     }
 }

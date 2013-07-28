@@ -41,6 +41,8 @@
             this.buttonToPlaylist = new System.Windows.Forms.Button();
             this.buttonFromPlaylist = new System.Windows.Forms.Button();
             this.comboBoxPlayer = new System.Windows.Forms.ComboBox();
+            this.labelSearch = new System.Windows.Forms.Label();
+            this.textBoxSearch = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // labelMedia
@@ -108,7 +110,7 @@
             this.listBoxPlaylist.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxPlaylist.FormattingEnabled = true;
             this.listBoxPlaylist.ItemHeight = 16;
-            this.listBoxPlaylist.Location = new System.Drawing.Point(449, 101);
+            this.listBoxPlaylist.Location = new System.Drawing.Point(454, 122);
             this.listBoxPlaylist.Name = "listBoxPlaylist";
             this.listBoxPlaylist.Size = new System.Drawing.Size(315, 324);
             this.listBoxPlaylist.TabIndex = 9;
@@ -118,7 +120,7 @@
             this.listBoxAvailableMedia.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.listBoxAvailableMedia.FormattingEnabled = true;
             this.listBoxAvailableMedia.ItemHeight = 16;
-            this.listBoxAvailableMedia.Location = new System.Drawing.Point(17, 101);
+            this.listBoxAvailableMedia.Location = new System.Drawing.Point(17, 122);
             this.listBoxAvailableMedia.Name = "listBoxAvailableMedia";
             this.listBoxAvailableMedia.Size = new System.Drawing.Size(315, 324);
             this.listBoxAvailableMedia.TabIndex = 10;
@@ -154,11 +156,32 @@
             this.comboBoxPlayer.Size = new System.Drawing.Size(95, 24);
             this.comboBoxPlayer.TabIndex = 13;
             // 
+            // labelSearch
+            // 
+            this.labelSearch.AutoSize = true;
+            this.labelSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelSearch.Location = new System.Drawing.Point(12, 85);
+            this.labelSearch.Name = "labelSearch";
+            this.labelSearch.Size = new System.Drawing.Size(51, 16);
+            this.labelSearch.TabIndex = 14;
+            this.labelSearch.Text = "Search";
+            // 
+            // textBoxSearch
+            // 
+            this.textBoxSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.textBoxSearch.Location = new System.Drawing.Point(71, 85);
+            this.textBoxSearch.Name = "textBoxSearch";
+            this.textBoxSearch.Size = new System.Drawing.Size(261, 22);
+            this.textBoxSearch.TabIndex = 15;
+            this.textBoxSearch.TextChanged += new System.EventHandler(this.textBoxSearch_TextChanged);
+            // 
             // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(781, 437);
+            this.ClientSize = new System.Drawing.Size(781, 461);
+            this.Controls.Add(this.textBoxSearch);
+            this.Controls.Add(this.labelSearch);
             this.Controls.Add(this.comboBoxPlayer);
             this.Controls.Add(this.buttonFromPlaylist);
             this.Controls.Add(this.buttonToPlaylist);
@@ -193,6 +216,8 @@
         private System.Windows.Forms.Button buttonToPlaylist;
         private System.Windows.Forms.Button buttonFromPlaylist;
         private System.Windows.Forms.ComboBox comboBoxPlayer;
+        private System.Windows.Forms.Label labelSearch;
+        private System.Windows.Forms.TextBox textBoxSearch;
     }
 }
 
