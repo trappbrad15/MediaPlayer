@@ -1,0 +1,20 @@
+/*    */ package java.util.zip;
+/*    */ 
+/*    */ public class Adler32
+/*    */   implements Checksum
+/*    */ {
+/*    */   public Adler32()
+/*    */   {
+/*  5 */     throw new RuntimeException("Stub!"); } 
+/*  6 */   public long getValue() { throw new RuntimeException("Stub!"); } 
+/*  7 */   public void reset() { throw new RuntimeException("Stub!"); } 
+/*  8 */   public void update(int i) { throw new RuntimeException("Stub!"); } 
+/*  9 */   public void update(byte[] buf) { throw new RuntimeException("Stub!"); } 
+/* 10 */   public void update(byte[] buf, int offset, int byteCount) { throw new RuntimeException("Stub!"); }
+/*    */ 
+/*    */ }
+
+/* Location:           C:\Users\Brad\Downloads\adt-bundle-windows-x86_64-20130717\sdk\platforms\android-18\android.jar
+ * Qualified Name:     java.util.zip.Adler32
+ * JD-Core Version:    0.6.2
+ */

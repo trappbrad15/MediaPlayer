@@ -166,6 +166,7 @@
             this.Controls.Add(this.axWindowsMediaPlayer1);
             this.Name = "FormControls";
             this.Text = "Controls";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.FormControls_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.trackBarVolume)).EndInit();
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();

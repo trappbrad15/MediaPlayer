@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Test Project</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="ref">Trolololol</string>
+    <string name="Play">Play</string>
+    <string name="Pause">Pause</string>
+    <string name="Next">Next</string>
+    <string name="Previous">Previous</string>
+    <string name="MediaPlayer">Media Player</string>
+    <string name="Controls">Media Controls</string>
+
+</resources>

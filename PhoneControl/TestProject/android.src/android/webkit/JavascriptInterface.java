@@ -1,0 +1,17 @@
+package android.webkit;
+
+import java.lang.annotation.Annotation;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target({java.lang.annotation.ElementType.METHOD})
+public @interface JavascriptInterface
+{
+}
+
+/* Location:           C:\Users\Brad\Downloads\adt-bundle-windows-x86_64-20130717\sdk\platforms\android-18\android.jar
+ * Qualified Name:     android.webkit.JavascriptInterface
+ * JD-Core Version:    0.6.2
+ */
